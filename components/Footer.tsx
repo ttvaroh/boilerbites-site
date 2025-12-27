@@ -54,20 +54,10 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="mailto:support@boilerbites.app"
+                  href="mailto:ttvaroh@icloud.com"
                   className="text-warmWhite/70 hover:text-purdueGold transition-colors font-sora text-sm"
                 >
-                  support@boilerbites.app
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/yourusername/boilerbites/issues"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-warmWhite/70 hover:text-purdueGold transition-colors font-sora text-sm"
-                >
-                  GitHub Issues
+                  ttvaroh@icloud.com
                 </a>
               </li>
             </ul>

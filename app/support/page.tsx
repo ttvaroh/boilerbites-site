@@ -8,7 +8,7 @@ export default function Support() {
   const faqs = [
     {
       question: 'How do I download BoilerBites?',
-      answer: 'BoilerBites is available on the App Store for iOS and Google Play Store for Android. Search for "BoilerBites" or use the download links on our homepage.',
+      answer: 'BoilerBites is available on the App Store for iOS. Search for "BoilerBites" or use the download link on our homepage.',
     },
     {
       question: 'Is BoilerBites free to use?',
@@ -65,29 +65,18 @@ export default function Support() {
           <div className="space-y-6">
             <div>
               <h3 className="text-xl font-sora font-semibold text-purdueGold mb-2">
-                Email Support
-              </h3>
-              <a
-                href="mailto:support@boilerbites.app"
-                className="text-warmWhite/80 font-sora hover:text-purdueGold transition-colors"
-              >
-                support@boilerbites.app
-              </a>
-            </div>
-            <div>
-              <h3 className="text-xl font-sora font-semibold text-purdueGold mb-2">
-                GitHub Issues
+                Email Support & Feature Requests
               </h3>
               <p className="text-warmWhite/80 font-sora mb-2">
-                Found a bug or have a feature request? Report it on GitHub:
+                Have a question or feature request? Send us an email:
               </p>
               <a
-                href="https://github.com/yourusername/boilerbites/issues"
+                href="mailto:ttvaroh@icloud.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purdueGold font-sora hover:underline"
+                className="text-warmWhite/80 font-sora hover:text-purdueGold transition-colors"
               >
-                github.com/yourusername/boilerbites/issues
+                ttvaroh@icloud.com
               </a>
             </div>
             <div>
@@ -159,24 +148,32 @@ export default function Support() {
                 Documentation
               </h3>
               <p className="text-warmWhite/80 font-sora mb-2">
-                Check out our README on GitHub for detailed setup instructions and technical documentation:
+                Check out our README and version history on GitHub for detailed technical documentation:
               </p>
               <a
-                href="https://github.com/yourusername/boilerbites"
+                href="https://github.com/ttvaroh/boilerbites"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purdueGold font-sora hover:underline"
               >
-                github.com/yourusername/boilerbites
+                github.com/ttvaroh/boilerbites
               </a>
             </div>
             <div>
               <h3 className="text-xl font-sora font-semibold text-purdueGold mb-2">
                 Community
               </h3>
-              <p className="text-warmWhite/80 font-sora">
-                Join discussions, share feedback, and connect with other users on GitHub Discussions.
+              <p className="text-warmWhite/80 font-sora mb-2">
+                Join discussions, share feedback, and connect with other users on our Discord server:
               </p>
+              <a
+                href="https://discord.gg/4MNhXMdNqP"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purdueGold font-sora hover:underline"
+              >
+                discord.gg/4MNhXMdNqP
+              </a>
             </div>
           </div>
         </div>

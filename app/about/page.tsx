@@ -36,8 +36,9 @@ export default function About() {
         <div className="bg-purdueBlack-100/50 border border-purdueGold/20 rounded-lg p-8">
           <p className="text-warmWhite/80 font-sora text-lg leading-relaxed mb-4">
             BoilerBites was created to help Purdue students make informed decisions about their nutrition
-            while dining on campus. We understand that tracking calories and nutrients can be challenging,
-            especially when eating at dining halls with constantly changing menus.
+            while dining on campus. We provide convenient access to real-time dining hall menus and understand
+            that tracking calories and nutrients can be challenging, especially when eating at dining halls
+            with constantly changing menus.
           </p>
           <p className="text-warmWhite/80 font-sora text-lg leading-relaxed">
             Our goal is to provide a simple, beautiful, and accurate way to track your nutrition, helping

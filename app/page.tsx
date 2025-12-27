@@ -40,15 +40,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="bg-purdueGold text-purdueBlack-200 px-8 py-3 rounded-lg font-sora font-semibold hover:bg-purdueGold/90 transition-colors"
           >
-            Download for iOS
-          </a>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.ttvaroh.BoilerBites"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-purdueGold text-purdueBlack-200 px-8 py-3 rounded-lg font-sora font-semibold hover:bg-purdueGold/90 transition-colors"
-          >
-            Download for Android
+            Download on the App Store
           </a>
         </div>
       </section>
