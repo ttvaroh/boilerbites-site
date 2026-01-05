@@ -45,6 +45,14 @@ export default function Footer() {
                   Support
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-warmWhite/70 hover:text-purdueGold transition-colors font-sora text-sm"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
