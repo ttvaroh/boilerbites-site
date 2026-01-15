@@ -35,7 +35,7 @@ export default function Home() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="https://apps.apple.com/app/boilerbites"
+            href="https://apps.apple.com/us/app/boilerbites-purdue-dining/id6754264626"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-purdueGold text-purdueBlack-200 px-8 py-3 rounded-lg font-sora font-semibold hover:bg-purdueGold/90 transition-colors"
@@ -78,7 +78,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://apps.apple.com/app/boilerbites"
+              href="https://apps.apple.com/us/app/boilerbites-purdue-dining/id6754264626"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-purdueGold text-purdueBlack-200 px-8 py-3 rounded-lg font-sora font-semibold hover:bg-purdueGold/90 transition-colors"

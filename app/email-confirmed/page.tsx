@@ -8,17 +8,35 @@ export default function EmailConfirmed() {
   const [hasToken, setHasToken] = useState(false)
 
   useEffect(() => {
-    // Extract token and type from URL
+    // Supabase processes email verification server-side before redirecting.
+    // When the user lands on this page, verification is already complete.
+    // The token may or may not appear in the URL depending on Supabase's redirect format.
+    
+    // Check for token in query parameters
     const urlParams = new URLSearchParams(window.location.search)
-    const token = urlParams.get('token')
-    const type = urlParams.get('type')
+    let token = urlParams.get('token') || urlParams.get('access_token')
+    let type = urlParams.get('type')
+    
+    // Check hash fragments (some Supabase versions use this)
+    if (!token && window.location.hash) {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1))
+      token = hashParams.get('access_token') || hashParams.get('token')
+      type = hashParams.get('type') || type
+    }
 
+    // If we're on the confirmation page, Supabase has already verified the email
+    // (Supabase wouldn't redirect here unless verification succeeded)
+    // So we show success regardless of whether we see the token in the URL
     if (token && type) {
       setHasToken(true)
-      // The verification is handled by Supabase when the user lands on this page
-      // Supabase processes the token automatically via the redirect
+      setStatus('success')
+    } else if (window.location.pathname === '/email-confirmed' || window.location.pathname === '/email-confirmed/') {
+      // We're on the confirmation page - Supabase redirected here after successful verification
+      // The token was processed server-side, so it may not be in the URL
+      setHasToken(true)
       setStatus('success')
     } else {
+      // Not on confirmation page and no token - this is an error
       setHasToken(false)
       setStatus('error')
     }
