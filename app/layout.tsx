@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Background from '@/components/Background'
+import AuthRedirectHandler from '@/components/AuthRedirectHandler'
 
 export const metadata: Metadata = {
   title: 'BoilerBites - Track Your Dining Hall Calories',
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <AuthRedirectHandler />
         <Background>
           <Header />
           <main className="min-h-screen">

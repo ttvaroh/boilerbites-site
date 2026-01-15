@@ -10,18 +10,23 @@ export default function EmailConfirmed() {
   useEffect(() => {
     // Supabase processes email verification server-side before redirecting.
     // When the user lands on this page, verification is already complete.
-    // The token may or may not appear in the URL depending on Supabase's redirect format.
+    // The token may appear in hash fragments (e.g., #access_token=...&type=signup)
     
-    // Check for token in query parameters
-    const urlParams = new URLSearchParams(window.location.search)
-    let token = urlParams.get('token') || urlParams.get('access_token')
-    let type = urlParams.get('type')
+    // Check hash fragments first (Supabase often uses this format)
+    let token: string | null = null
+    let type: string | null = null
     
-    // Check hash fragments (some Supabase versions use this)
-    if (!token && window.location.hash) {
+    if (typeof window !== 'undefined' && window.location.hash) {
       const hashParams = new URLSearchParams(window.location.hash.substring(1))
       token = hashParams.get('access_token') || hashParams.get('token')
-      type = hashParams.get('type') || type
+      type = hashParams.get('type')
+    }
+    
+    // Also check query parameters (fallback)
+    if (!token && typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      token = urlParams.get('token') || urlParams.get('access_token')
+      type = urlParams.get('type') || type
     }
 
     // If we're on the confirmation page, Supabase has already verified the email
@@ -30,7 +35,7 @@ export default function EmailConfirmed() {
     if (token && type) {
       setHasToken(true)
       setStatus('success')
-    } else if (window.location.pathname === '/email-confirmed' || window.location.pathname === '/email-confirmed/') {
+    } else if (typeof window !== 'undefined' && (window.location.pathname === '/email-confirmed' || window.location.pathname === '/email-confirmed/')) {
       // We're on the confirmation page - Supabase redirected here after successful verification
       // The token was processed server-side, so it may not be in the URL
       setHasToken(true)
