@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
@@ -20,8 +19,7 @@ const MAX_PASSWORD_LENGTH = 128 // Prevent DoS attacks
 const MIN_PASSWORD_LENGTH = 8
 const RATE_LIMIT_MS = 2000 // Minimum time between submissions (2 seconds)
 
-function ResetPasswordForm() {
-  const searchParams = useSearchParams()
+export default function ResetPassword() {
   const [status, setStatus] = useState<'verifying' | 'form' | 'success' | 'error'>('verifying')
   const [error, setError] = useState<string | null>(null)
   const [password, setPassword] = useState('')
@@ -49,8 +47,16 @@ function ResetPasswordForm() {
   // Security: Verify token on mount and store it
   useEffect(() => {
     const verifyToken = async () => {
-      const tokenHash = searchParams.get('token_hash')
-      const type = searchParams.get('type')
+      // For static exports, read search params from window.location
+      if (typeof window === 'undefined') {
+        setError('This password reset link is invalid or has expired. Please request a new one.')
+        setStatus('error')
+        return
+      }
+
+      const urlParams = new URLSearchParams(window.location.search)
+      const tokenHash = urlParams.get('token_hash')
+      const type = urlParams.get('type')
 
       // Security: Validate token format and type
       if (!tokenHash || type !== 'recovery') {
@@ -93,7 +99,7 @@ function ResetPasswordForm() {
     }
 
     verifyToken()
-  }, [searchParams])
+  }, [])
 
   // Security: Re-verify token and session before password update
   const verifySessionBeforeUpdate = async (): Promise<boolean> => {
@@ -496,28 +502,3 @@ function ResetPasswordForm() {
   )
 }
 
-// Loading fallback component
-function ResetPasswordLoading() {
-  return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="bg-purdueBlack-100/50 backdrop-blur-sm border border-purdueGold/20 rounded-lg p-8 md:p-12 max-w-md w-full text-center">
-        <div className="animate-spin w-12 h-12 mx-auto mb-6 border-4 border-purdueGold border-t-transparent rounded-full"></div>
-        <h1 className="text-2xl md:text-3xl font-sora font-bold text-purdueGold mb-4">
-          Loading...
-        </h1>
-        <p className="text-warmWhite/70 font-sora">
-          Please wait...
-        </p>
-      </div>
-    </div>
-  )
-}
-
-// Default export with Suspense boundary
-export default function ResetPassword() {
-  return (
-    <Suspense fallback={<ResetPasswordLoading />}>
-      <ResetPasswordForm />
-    </Suspense>
-  )
-}
