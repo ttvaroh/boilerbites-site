@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
@@ -20,7 +20,7 @@ const MAX_PASSWORD_LENGTH = 128 // Prevent DoS attacks
 const MIN_PASSWORD_LENGTH = 8
 const RATE_LIMIT_MS = 2000 // Minimum time between submissions (2 seconds)
 
-export default function ResetPassword() {
+function ResetPasswordForm() {
   const searchParams = useSearchParams()
   const [status, setStatus] = useState<'verifying' | 'form' | 'success' | 'error'>('verifying')
   const [error, setError] = useState<string | null>(null)
@@ -493,5 +493,31 @@ export default function ResetPassword() {
         </div>
       </div>
     </div>
+  )
+}
+
+// Loading fallback component
+function ResetPasswordLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="bg-purdueBlack-100/50 backdrop-blur-sm border border-purdueGold/20 rounded-lg p-8 md:p-12 max-w-md w-full text-center">
+        <div className="animate-spin w-12 h-12 mx-auto mb-6 border-4 border-purdueGold border-t-transparent rounded-full"></div>
+        <h1 className="text-2xl md:text-3xl font-sora font-bold text-purdueGold mb-4">
+          Loading...
+        </h1>
+        <p className="text-warmWhite/70 font-sora">
+          Please wait...
+        </p>
+      </div>
+    </div>
+  )
+}
+
+// Default export with Suspense boundary
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={<ResetPasswordLoading />}>
+      <ResetPasswordForm />
+    </Suspense>
   )
 }
