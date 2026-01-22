@@ -29,17 +29,30 @@ export default function EmailConfirmed() {
       type = urlParams.get('type') || type
     }
 
+    // SECURITY: If this is a recovery token, redirect to reset-password page
+    // This should not happen if AuthRedirectHandler is working, but as a safety check:
+    if (type === 'recovery') {
+      window.location.href = `/reset-password${window.location.hash}`
+      return
+    }
+
     // If we're on the confirmation page, Supabase has already verified the email
     // (Supabase wouldn't redirect here unless verification succeeded)
     // So we show success regardless of whether we see the token in the URL
-    if (token && type) {
+    if (token && type && type !== 'recovery') {
       setHasToken(true)
       setStatus('success')
     } else if (typeof window !== 'undefined' && (window.location.pathname === '/email-confirmed' || window.location.pathname === '/email-confirmed/')) {
       // We're on the confirmation page - Supabase redirected here after successful verification
       // The token was processed server-side, so it may not be in the URL
-      setHasToken(true)
-      setStatus('success')
+      // But only if it's not a recovery type
+      if (type !== 'recovery') {
+        setHasToken(true)
+        setStatus('success')
+      } else {
+        // Recovery token ended up here - redirect to reset-password
+        window.location.href = `/reset-password${window.location.hash}`
+      }
     } else {
       // Not on confirmation page and no token - this is an error
       setHasToken(false)
