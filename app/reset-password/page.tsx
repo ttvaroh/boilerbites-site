@@ -45,15 +45,59 @@ export default function ResetPassword() {
   const passwordsMatch = password === confirmPassword && confirmPassword.length > 0
 
   // Security: Verify token on mount and store it
+  // Handles both scenarios:
+  // 1. Direct link with token_hash in query params
+  // 2. Supabase redirect with tokens in hash fragments
   useEffect(() => {
     const verifyToken = async () => {
-      // For static exports, read search params from window.location
+      // For static exports, read from window.location
       if (typeof window === 'undefined') {
         setError('This password reset link is invalid or has expired. Please request a new one.')
         setStatus('error')
         return
       }
 
+      // Scenario 1: Check for hash fragments first (from Supabase redirect)
+      const hash = window.location.hash.substring(1)
+      const hashParams = new URLSearchParams(hash)
+      const accessToken = hashParams.get('access_token')
+      const refreshToken = hashParams.get('refresh_token')
+      const typeFromHash = hashParams.get('type')
+
+      if (accessToken && refreshToken && typeFromHash === 'recovery') {
+        try {
+          // Security: Set session from redirect tokens
+          const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          })
+
+          if (sessionError || !sessionData.session) {
+            setError('This password reset link is invalid or has expired. Please request a new one.')
+            setStatus('error')
+            return
+          }
+
+          // Security: Store verification state
+          tokenHashRef.current = 'hash_redirect' // Mark as hash-based redirect
+          tokenVerifiedRef.current = true
+          setIsTokenVerified(true)
+
+          // Clear hash from URL for security
+          window.history.replaceState(null, '', window.location.pathname + window.location.search)
+
+          // Session is set, show form
+          setStatus('form')
+          return
+        } catch (err) {
+          console.error('Error setting session from hash:', err)
+          setError('An error occurred. Please try again.')
+          setStatus('error')
+          return
+        }
+      }
+
+      // Scenario 2: Check for token_hash in query params (direct link)
       const urlParams = new URLSearchParams(window.location.search)
       const tokenHash = urlParams.get('token_hash')
       const type = urlParams.get('type')
@@ -85,6 +129,7 @@ export default function ResetPassword() {
           return
         }
 
+        // Security: Store token hash and mark as verified
         tokenHashRef.current = tokenHash
         tokenVerifiedRef.current = true
         setIsTokenVerified(true)
@@ -103,7 +148,7 @@ export default function ResetPassword() {
 
   // Security: Re-verify token and session before password update
   const verifySessionBeforeUpdate = async (): Promise<boolean> => {
-    if (!tokenHashRef.current || !tokenVerifiedRef.current) {
+    if (!tokenVerifiedRef.current) {
       return false
     }
 
@@ -112,12 +157,18 @@ export default function ResetPassword() {
       const { data: { session } } = await supabase.auth.getSession()
       
       if (!session) {
-        const { data, error: verifyError } = await supabase.auth.verifyOtp({
-          token_hash: tokenHashRef.current,
-          type: 'recovery',
-        })
+        // If we have a token hash (not from hash redirect), re-verify
+        if (tokenHashRef.current && tokenHashRef.current !== 'hash_redirect') {
+          const { data, error: verifyError } = await supabase.auth.verifyOtp({
+            token_hash: tokenHashRef.current,
+            type: 'recovery',
+          })
 
-        if (verifyError || !data) {
+          if (verifyError || !data) {
+            return false
+          }
+        } else {
+          // No session and no token hash to re-verify
           return false
         }
       }
