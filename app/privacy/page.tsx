@@ -7,7 +7,7 @@ export default function Privacy() {
           Privacy Policy
         </h1>
         <p className="text-xl text-warmWhite/90 font-sora max-w-3xl mx-auto">
-          Last Updated: January 5, 2026
+          Last Updated: February 11, 2026
         </p>
       </section>
 
@@ -88,6 +88,22 @@ export default function Privacy() {
               </ul>
             </div>
 
+            <div>
+              <h3 className="text-xl font-sora font-semibold text-purdueGold mb-3">2.6 Health App Connection & Sync Data (Optional)</h3>
+              <p className="text-warmWhite/80 font-sora mb-2">
+                If you choose to connect Apple Health or Fitbit, we collect and use the following only to sync your BoilerBites food logs to the health app:
+              </p>
+              <ul className="space-y-2 text-warmWhite/80 font-sora">
+                <li>• <strong>Connection status</strong>: Whether you have connected Apple Health or Fitbit, and whether auto-sync is enabled</li>
+                <li>• <strong>Fitbit</strong>: OAuth tokens (access and refresh) stored securely so we can send your logged foods to your Fitbit food log. We do not read your existing Fitbit activity or health data.</li>
+                <li>• <strong>Apple Health</strong>: We only <em>write</em> dietary data (calories, protein, carbs, fat, etc.) for foods you log in BoilerBites. We do not read your other Health app data. Permission is requested on-device and can be revoked in iOS Settings.</li>
+                <li>• <strong>Sync records</strong>: We store which BoilerBites food entry IDs were synced to which external log IDs (e.g., Fitbit log ID) so we can update or remove them when you edit or delete entries in BoilerBites.</li>
+              </ul>
+              <p className="text-warmWhite/80 font-sora mt-2">
+                Health app connection is optional. Disconnecting in the app or revoking permissions in your device or Fitbit account stops all sync and use of this data.
+              </p>
+            </div>
+
             <div className="bg-purdueGold/10 border border-purdueGold/30 rounded-lg p-4 mt-4">
               <p className="text-warmWhite/90 font-sora font-semibold">
                 ⚠️ Important Note: Camera access is used ONLY for barcode scanning. No photos or images are stored or transmitted.
@@ -132,6 +148,15 @@ export default function Privacy() {
             </div>
 
             <div>
+              <h3 className="text-xl font-sora font-semibold text-purdueGold mb-2">Health App Sync (Optional)</h3>
+              <ul className="space-y-1 text-warmWhite/80 font-sora ml-4">
+                <li>• Send your BoilerBites food entries (name, calories, macros, meal type, date) to Apple Health or Fitbit when you have connected and enabled sync</li>
+                <li>• Update or remove entries in the health app when you edit or delete them in BoilerBites</li>
+                <li>• Store connection and sync metadata only as needed to keep health app logs in sync with your BoilerBites diary</li>
+              </ul>
+            </div>
+
+            <div>
               <h3 className="text-xl font-sora font-semibold text-purdueGold mb-2">Service Improvement</h3>
               <ul className="space-y-1 text-warmWhite/80 font-sora ml-4">
                 <li>• Improve app functionality and user experience</li>
@@ -150,9 +175,11 @@ export default function Privacy() {
             <div>
               <h3 className="text-xl font-sora font-semibold text-purdueGold mb-3">4.1 Where Data is Stored</h3>
               <ul className="space-y-2 text-warmWhite/80 font-sora">
-                <li>• <strong>Supabase Database</strong>: All user data (profile, food entries, nutrition tracking, favorites) is stored in Supabase's secure PostgreSQL database</li>
+                <li>• <strong>Supabase Database</strong>: All user data (profile, food entries, nutrition tracking, favorites), health app connection status, and sync metadata (e.g., Fitbit log IDs linked to your food entries) are stored in Supabase's secure PostgreSQL database</li>
                 <li>• <strong>Local Device Storage</strong>: Authentication tokens stored locally via AsyncStorage for session management</li>
                 <li>• <strong>Supabase Authentication</strong>: User credentials and authentication data managed by Supabase</li>
+                <li>• <strong>Fitbit</strong>: When connected, we send only the food log data you create in BoilerBites to Fitbit; we do not store your Fitbit health or activity data on our servers</li>
+                <li>• <strong>Apple Health</strong>: Dietary data we write is stored in the Health app on your device only; we do not receive or store your Health app data on our servers</li>
               </ul>
             </div>
 
@@ -222,6 +249,26 @@ export default function Privacy() {
               </ul>
             </div>
 
+            <div>
+              <h3 className="text-xl font-sora font-semibold text-purdueGold mb-2">5.6 Fitbit (Optional)</h3>
+              <ul className="space-y-1 text-warmWhite/80 font-sora">
+                <li>• <strong>Purpose</strong>: Sync your BoilerBites food log to your Fitbit food log so you can see your nutrition in the Fitbit app</li>
+                <li>• <strong>Data Shared</strong>: Food name, calories, macronutrients, meal type, and date for entries you add, edit, or delete in BoilerBites. OAuth tokens are stored so we can perform sync on your behalf.</li>
+                <li>• <strong>Privacy Policy</strong>: <a href="https://www.fitbit.com/global/us/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-purdueGold hover:underline">https://www.fitbit.com/global/us/legal/privacy-policy</a></li>
+                <li>• <strong>Note</strong>: Only used if you connect Fitbit in the app. You can disconnect at any time in BoilerBites or in your Fitbit account.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-sora font-semibold text-purdueGold mb-2">5.7 Apple Health (Optional)</h3>
+              <ul className="space-y-1 text-warmWhite/80 font-sora">
+                <li>• <strong>Purpose</strong>: Write dietary nutrition data (calories, protein, carbs, fat, etc.) for foods you log in BoilerBites into the Health app on your iPhone</li>
+                <li>• <strong>Data Shared</strong>: Data is written to Health on your device only; we do not send your Health data to our servers. We only send the dietary entries you create in BoilerBites to the Health app.</li>
+                <li>• <strong>Privacy Policy</strong>: Apple Health data is governed by Apple's privacy practices. See <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-purdueGold hover:underline">https://www.apple.com/legal/privacy/</a></li>
+                <li>• <strong>Note</strong>: Only used if you enable Apple Health in the app. You can revoke access in iOS Settings → Privacy & Security → Health → BoilerBites.</li>
+              </ul>
+            </div>
+
             <div className="bg-purdueGold/10 border border-purdueGold/30 rounded-lg p-4 mt-4">
               <p className="text-warmWhite/90 font-sora font-semibold">
                 ⚠️ Important: We do NOT sell your personal data to third parties. Data is only shared with the services listed above to provide app functionality.
@@ -240,7 +287,8 @@ export default function Privacy() {
               <li>• <strong>Account Data</strong>: Retained while your account is active</li>
               <li>• <strong>Food Entries</strong>: Retained until you delete them or your account is deleted</li>
               <li>• <strong>Nutrition Tracking</strong>: Historical data retained for progress tracking</li>
-              <li>• <strong>Deletion</strong>: You can delete your account at any time, which will delete all associated data</li>
+              <li>• <strong>Health App Connections</strong>: Connection and sync metadata retained until you disconnect the health app or delete your account</li>
+              <li>• <strong>Deletion</strong>: You can delete your account at any time, which will delete all associated data, including health app connection and sync records</li>
             </ul>
           </div>
         </section>
@@ -286,6 +334,16 @@ export default function Privacy() {
               <ul className="space-y-2 text-warmWhite/80 font-sora">
                 <li>• You can choose between email/password or Azure AD (Purdue.edu) authentication</li>
                 <li>• You can switch authentication methods (contact support for assistance)</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-sora font-semibold text-purdueGold mb-3">7.5 Health App Connections</h3>
+              <ul className="space-y-2 text-warmWhite/80 font-sora">
+                <li>• <strong>Disconnect anytime</strong>: In the app, go to Health Connections and disconnect Apple Health or Fitbit. This stops all syncing and we will no longer send data to that service.</li>
+                <li>• <strong>Fitbit</strong>: You can also revoke BoilerBites access in your Fitbit account settings</li>
+                <li>• <strong>Apple Health</strong>: You can revoke BoilerBites' access to Health in iOS Settings → Privacy & Security → Health → BoilerBites</li>
+                <li>• Disconnecting or revoking does not delete data already sent to the health app; you may need to remove those entries in the Fitbit or Health app if desired</li>
               </ul>
             </div>
           </div>
@@ -373,11 +431,12 @@ export default function Privacy() {
           <div className="bg-purdueBlack-100/50 border border-purdueGold/20 rounded-lg p-8">
             <ul className="space-y-3 text-warmWhite/80 font-sora">
               <li>• <strong>Camera Usage</strong>: Camera is ONLY used for barcode scanning, no images stored</li>
-              <li>• <strong>No Location Tracking</strong>: Your app does NOT collect location data (only dining hall preferences)</li>
-              <li>• <strong>No Advertising</strong>: Your app does NOT show ads or use advertising networks</li>
-              <li>• <strong>No Cross-App Tracking</strong>: You do NOT track users across other apps or websites</li>
-              <li>• <strong>Data Minimization</strong>: Only collect data necessary for app functionality</li>
-              <li>• <strong>User Control</strong>: Users can delete their data at any time</li>
+              <li>• <strong>No Location Tracking</strong>: The app does NOT collect location data (only dining hall preferences)</li>
+              <li>• <strong>No Advertising</strong>: The app does NOT show ads or use advertising networks</li>
+              <li>• <strong>No Cross-App Tracking</strong>: We do NOT track users across other apps or websites</li>
+              <li>• <strong>Health Data</strong>: Apple Health and Fitbit integration is optional. We only send your BoilerBites food logs to the health app you connect; we do not read your existing health or activity data from those apps for any other purpose.</li>
+              <li>• <strong>Data Minimization</strong>: We only collect data necessary for app functionality</li>
+              <li>• <strong>User Control</strong>: Users can delete their data and disconnect health apps at any time</li>
             </ul>
           </div>
         </section>
