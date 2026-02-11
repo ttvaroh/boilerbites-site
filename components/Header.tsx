@@ -13,6 +13,7 @@ export default function Header() {
     { href: '/about', label: 'About' },
     { href: '/support', label: 'Support' },
     { href: '/privacy', label: 'Privacy' },
+    { href: '/terms-of-service', label: 'Terms of Service' },
   ]
 
   const isActive = (href: string) => pathname === href
